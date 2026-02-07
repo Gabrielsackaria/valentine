@@ -4,18 +4,15 @@ import Spotify from './components/spotify';
 import './App.css';
 
 function App() {
-  // --- STATE ---
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [saidYes, setSaidYes] = useState(false);
   const [inputDate, setInputDate] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState("home");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // --- CONFIGURATION (Paths restored to original) ---
   const anniversaryDate = "2023-05-12"; 
   const slideshowImages = [
-    "/pic1.jpg", 
+    "/pic1.jpg",
     "/pic2.jpg",
     "/pic3.jpg",
     "/pic4.jpg",
@@ -23,84 +20,70 @@ function App() {
     "/pic6.jpg",
   ];
 
-  // --- SLIDESHOW LOGIC ---
+  // --- LETTER CONTENT (for animation) ---
+  const letterLines = [
+    "A letter to my sweet boy 🥹💞",
+    "I still remember the first day we met like it was yesterday 🥹. How easily we connected, as if we weren't strangers at all.",
+    "If someone had asked me back then whether I'd be this in love with you, I probably would've said no 🥲—because our relationship truly is the best unexpected thing to ever happen to either of us.",
+    "You changed my perspective on men. You made me believe that not all men are the same—you really are different 😌.",
+    "I love the patience you have with me, the way you look at me so effortlessly, and how you handle me with such care, as if I'm some fragile masterpiece 🥺.",
+    "You really are my sweet boy 🥹, and I love you more with each passing day. Loving you feels effortless—you really do make it that easy 🥺.",
+    "There are no amount of words that could fully express how I truly feel. If only you could feel what I feel, then maybe you'd know 🤍.",
+    "I pray that we always fight for each other, and that God gives us the strength to keep going even when we feel like giving up 🙏🏾❤️.",
+    "I'd choose you over and over again—in this life and the next. Being with you truly is my favorite part of life 🥺.",
+    "HAPPY VALENTINE'S, baby 🥺🥹💖"
+  ];
+  
+
   useEffect(() => {
-    if (isLoggedIn && saidYes && currentPage === "home") {
+    if (isLoggedIn && currentPage === "home") {
       const interval = setInterval(() => {
-        setCurrentImageIndex((prev) => (prev + 1) % slideshowImages.length);
-      }, 5000); 
+        setCurrentImageIndex(prev => (prev + 1) % slideshowImages.length);
+      }, 5000);
       return () => clearInterval(interval);
     }
-  }, [isLoggedIn, saidYes, currentPage, slideshowImages.length]);
+  }, [isLoggedIn, currentPage, slideshowImages.length]);
 
-  // --- HANDLERS ---
   const handleLogin = () => {
     if (inputDate === anniversaryDate) {
       setIsLoggedIn(true);
     } else {
-      alert("Incorrect date. Locked for security. 🔒");
+      alert("Incorrect date. 🔒");
     }
   };
 
-  const moveButton = (e) => {
-    const x = Math.random() * (window.innerWidth - 150);
-    const y = Math.random() * (window.innerHeight - 150);
-    e.target.style.position = 'fixed';
-    e.target.style.left = `${x}px`;
-    e.target.style.top = `${y}px`;
-  };
-
-  // --- RENDER 1: LOGIN ---
+  /* ---------- LOGIN SCREEN ---------- */
   if (!isLoggedIn) {
     return (
       <div className="app-container">
-        <div className="glass-card login-card animate-up">
-          <div className="lock-icon">🔒</div>
+        <div className="glass-card animate-up">
           <h1 className="brand-title">SoulScript</h1>
-          <p className="subtitle">Enter our special date to unlock.</p>
-          <input 
-            type="date" 
+          <p>Enter our special date to unlock 💞</p>
+          <input
+            type="date"
             className="premium-input"
-            onChange={(e) => setInputDate(e.target.value)} 
+            onChange={(e) => setInputDate(e.target.value)}
           />
-          <button className="premium-btn" onClick={handleLogin}>Unlock</button>
+          <button className="premium-btn" onClick={handleLogin}>
+            Unlock
+          </button>
         </div>
-        <div className="background-blobs"></div>
+        <div className="background-blobs" />
       </div>
     );
   }
 
-  // --- RENDER 2: THE QUESTION ---
-  if (!saidYes) {
-    return (
-      <div className="app-container">
-        <div className="glass-card question-card animate-up">
-          <img 
-            src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZqZzR6eXp6eXp6eXp6eXp6eXp6eXp6eXp6eXp6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9iZCZjdD1n/c7kaO8UXY0y8019Xsh/giphy.gif" 
-            className="feature-img" 
-            alt="Love"
-          />
-          <h1>Will you be my Valentine?</h1>
-          <div className="action-buttons">
-            <button className="premium-btn yes-btn" onClick={() => setSaidYes(true)}>Yes ❤️</button>
-            <button className="premium-btn no-btn" onMouseOver={moveButton}>No</button>
-          </div>
-        </div>
-        <div className="background-blobs"></div>
-      </div>
-    );
-  }
-
-  // --- RENDER 3: PREMIUM DASHBOARD ---
+  /* ---------- DASHBOARD ---------- */
   return (
     <div className="app-container dashboard">
+
+      {/* SIDEBAR */}
       <nav className={`glass-sidebar ${menuOpen ? 'active' : ''}`}>
         <div className="brand">Us.</div>
         <ul>
-          <li onClick={() => {setCurrentPage("home"); setMenuOpen(false)}} className={currentPage === 'home' ? 'active-link' : ''}>🏠 Home</li>
-          <li onClick={() => {setCurrentPage("letter"); setMenuOpen(false)}} className={currentPage === 'letter' ? 'active-link' : ''}>💌 Love Letter</li>
-          <li onClick={() => {setCurrentPage("reasons"); setMenuOpen(false)}} className={currentPage === 'reasons' ? 'active-link' : ''}>✨ 100 Reasons</li>
-          <li onClick={() => {setCurrentPage("future"); setMenuOpen(false)}} className={currentPage === 'future' ? 'active-link' : ''}>🚀 Future</li>
+          <li onClick={() => setCurrentPage("home")} className={currentPage === 'home' ? 'active-link' : ''}>🏠 Home</li>
+          <li onClick={() => setCurrentPage("letter")} className={currentPage === 'letter' ? 'active-link' : ''}>💌 Love Letter</li>
+          <li onClick={() => setCurrentPage("reasons")} className={currentPage === 'reasons' ? 'active-link' : ''}>✨ Reasons</li>
         </ul>
       </nav>
 
@@ -110,46 +93,59 @@ function App() {
 
       <main className="content-area">
         {currentPage === "home" && (
-          <div className="glass-panel animate-up has-slideshow">
+          <div className="glass-panel has-slideshow">
             <div className="slideshow-wrapper">
               {slideshowImages.map((img, index) => (
-                <div 
+                <div
                   key={index}
                   className={`slide ${index === currentImageIndex ? 'active' : ''}`}
                   style={{ backgroundImage: `url(${img})` }}
                 />
               ))}
-              <div className="slideshow-overlay"></div>
-            </div>
-            
-            <div className="relative-content">
-              <h1 className="hero-text">Welcome Home, My Love.</h1>
-              <p>Explore the sidebar to see what I've prepared for you.</p>
+              <div className="slideshow-overlay" />
             </div>
 
-            {/* DRAGGABLE SPOTIFY FEATURE */}
-            <Draggable bounds="parent">
-              <div className="music-player-wrapper draggable-widget">
-                <div className="drag-handle">⠿ Drag to move player</div>
-                <Spotify />
-              </div>
-            </Draggable>
+            <div className="relative-content">
+              <h1 className="hero-text">Welcome Home, My Love 🤍</h1>
+              <p>This space was made just for us.</p>
+            </div>
           </div>
         )}
 
         {currentPage === "letter" && (
-          <div className="glass-panel animate-up scroll-y">
-            <div className="relative-content">
-              <h2>My Letter to You</h2>
-              <p className="letter-body">Paste your long, romantic letter here...</p>
+          <div className="glass-panel scroll-y">
+            <div className="relative-content letter-container">
+              <h2>My Letter to You 💌</h2>
+              <div className="letter-body">
+                {letterLines.map((line, index) => (
+                  <p key={index} className={`letter-line delay-${index + 1}`}>
+                    {line}
+                  </p>
+                ))}
+              </div>
             </div>
           </div>
         )}
 
-        {/* ... Other pages (reasons, future) follow the same structure ... */}
+        {currentPage === "reasons" && (
+          <div className="glass-panel scroll-y">
+            <div className="relative-content">
+              <h2>Reasons Why I Love You ✨</h2>
+              <p>Coming soon...</p>
+            </div>
+          </div>
+        )}
       </main>
-      
-      <div className="background-blobs"></div>
+
+      {/* ✅ SPOTIFY FLOATING – MOBILE SAFE */}
+      <Draggable bounds="body">
+        <div className="music-player-wrapper draggable-widget floating-spotify">
+          <div className="drag-handle">⠿ Drag</div>
+          <Spotify />
+        </div>
+      </Draggable>
+
+      <div className="background-blobs" />
     </div>
   );
 }
