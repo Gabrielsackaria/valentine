@@ -10,7 +10,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState("home");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const anniversaryDate = "2023-05-12"; 
+  const anniversaryDate = "2025-07-21"; 
   const slideshowImages = [
     "/pic1.jpg",
     "/pic2.jpg",
