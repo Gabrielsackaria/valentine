@@ -267,3 +267,19 @@ body {
     border-radius: 20px;
   }
 }
+/* FIX DASHBOARD LAYOUT ON MOBILE */
+@media (max-width: 768px) {
+  .app-container.dashboard {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .content-area {
+    width: 100%;
+    padding-top: 80px; /* space for menu button */
+  }
+
+  .glass-panel {
+    width: 100%;
+  }
+}
