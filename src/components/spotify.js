@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { Icon } from '@iconify/react';
 import './spotify.css';
 
@@ -6,7 +6,7 @@ function SpotifyEmbed() {
   const embedRef = useRef(null);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
 
-  const trackURIs = [
+  const trackURIs = useMemo(() => [
     'spotify:track:3KkXRkHbMCARz0aVfEt68P',
     'spotify:track:5IPl8JpkbtSH1mdyq5ctSx',
     'spotify:track:609E1JCInJncactoMmkDon',
@@ -14,18 +14,17 @@ function SpotifyEmbed() {
     'spotify:track:4VQH4VluDUOsOuDxccTeyN',
     'spotify:track:26hOm7dTtBi0TdpDGl141t',
     'spotify:track:3Eax1yebRxj6LSYpxE9Yd3',
-  ];
+  ], []);
 
   useEffect(() => {
     const embedElement = embedRef.current;
     function updateEmbed() {
       const currentTrackURI = trackURIs[currentTrackIndex];
-      // Fixed URL string interpolation
       const embedSource = `https://open.spotify.com/embed/track/${currentTrackURI.split(':')[2]}`;
       embedElement.src = embedSource;
     }
     updateEmbed();
-  }, [currentTrackIndex]);
+  }, [currentTrackIndex, trackURIs]);
 
   const goForward = () => setCurrentTrackIndex((currentTrackIndex + 1) % trackURIs.length);
   const goBackward = () => setCurrentTrackIndex((currentTrackIndex - 1 + trackURIs.length) % trackURIs.length);
