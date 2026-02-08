@@ -19,6 +19,17 @@ function App() {
     "/pic5.jpg",
     "/pic6.jpg",
   ];
+  
+  const photoGallery = [
+    "/pic1.jpg",
+    "/pic2.jpg",
+    "/pic3.jpg",
+    "/pic4.jpg",
+    "/pic5.jpg",
+    "/pic6.jpg",
+  ];
+  
+  const highlightVideo = "https://www.w3schools.com/html/mov_bbb.mp4";
 
   // --- LETTER CONTENT (for animation) ---
   const letterLines = [
@@ -137,7 +148,6 @@ function App() {
     "How you choose me every day🥺",
     "I love you for you🫂❤️❤️❤️"
   ];
-  
 
   useEffect(() => {
     if (isLoggedIn && currentPage === "home") {
@@ -154,6 +164,11 @@ function App() {
     } else {
       alert("Incorrect date. 🔒");
     }
+  };
+
+  const handleNavClick = (page) => {
+    setCurrentPage(page);
+    setMenuOpen(false);
   };
 
   /* ---------- LOGIN SCREEN ---------- */
@@ -181,13 +196,17 @@ function App() {
   return (
     <div className="app-container dashboard">
 
+      {/* BACKDROP OVERLAY */}
+      {menuOpen && <div className="sidebar-backdrop" onClick={() => setMenuOpen(false)} />}
+
       {/* SIDEBAR */}
       <nav className={`glass-sidebar ${menuOpen ? 'active' : ''}`}>
         <div className="brand">Us.</div>
         <ul>
-          <li onClick={() => setCurrentPage("home")} className={currentPage === 'home' ? 'active-link' : ''}>🏠 Home</li>
-          <li onClick={() => setCurrentPage("letter")} className={currentPage === 'letter' ? 'active-link' : ''}>💌 Love Letter</li>
-          <li onClick={() => setCurrentPage("reasons")} className={currentPage === 'reasons' ? 'active-link' : ''}>✨ Reasons</li>
+          <li onClick={() => handleNavClick("home")} className={currentPage === 'home' ? 'active-link' : ''}>🏠 Home</li>
+          <li onClick={() => handleNavClick("letter")} className={currentPage === 'letter' ? 'active-link' : ''}>💌 Love Letter</li>
+          <li onClick={() => handleNavClick("reasons")} className={currentPage === 'reasons' ? 'active-link' : ''}>✨ Reasons</li>
+          <li onClick={() => handleNavClick("memories")} className={currentPage === 'memories' ? 'active-link' : ''}>📸 Pictures + Video</li>
         </ul>
       </nav>
 
@@ -246,9 +265,36 @@ function App() {
             </div>
           </div>
         )}
+
+        {currentPage === "memories" && (
+          <div className="glass-panel scroll-y">
+            <div className="relative-content">
+              <h2>Pictures + Video 🎞️</h2>
+              <p className="section-subtitle">A few of my favorite moments with you.</p>
+              <div className="media-grid">
+                {photoGallery.map((photo, index) => (
+                  <div className="media-card" key={photo}>
+                    <img
+                      className="media-image"
+                      src={photo}
+                      alt={`Memory ${index + 1}`}
+                    />
+                  </div>
+                ))}
+              </div>
+              <div className="media-video">
+                <h3>Our Highlight Reel 💗</h3>
+                <video controls poster="/pic1.jpg">
+                  <source src={highlightVideo} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
 
-      {/* ✅ SPOTIFY FLOATING – MOBILE SAFE */}
+      {/* SPOTIFY FLOATING */}
       <Draggable bounds="body">
         <div className="music-player-wrapper draggable-widget floating-spotify">
           <div className="drag-handle">⠿ Drag</div>
