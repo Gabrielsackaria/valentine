@@ -29,23 +29,31 @@ function App() {
     "/pic6.jpg",
   ];
   
-  const highlightVideo = "https://www.w3schools.com/html/mov_bbb.mp4";
+  const videos = [
+    { title: "Our First Date", url: "/video1.mp4" },
+    { title: "Beach Day", url: "/video2.mp4" },
+    { title: "Anniversary Surprise", url: "/video3.mp4" },
+    { title: "Road Trip Memories", url: "/video4.mp4" },
+    { title: "", url: "/video5.mp4" },
+    { title: "", url: "/video6.mp4" },
+    { title: "", url: "/video7.mp4"},
+    { title: "", url: "/video8.mp4"},
+    { title: "", url: "/video9.mp4"},
+  ];
 
-  // --- LETTER CONTENT (for animation) ---
   const letterLines = [
     "A letter to my sweet boy 🥹💞",
     "I still remember the first day we met like it was yesterday 🥹. How easily we connected, as if we weren't strangers at all.",
-    "If someone had asked me back then whether I'd be this in love with you, I probably would've said no 🥲because our relationship truly is the best unexpected thing to ever happen to either of us.",
-    "You changed my perspective on men. You made me believe that not all men are the same you really are different 😌.",
+    "If someone had asked me back then whether I'd be this in love with you, I probably would've said no 🥲—because our relationship truly is the best unexpected thing to ever happen to either of us.",
+    "You changed my perspective on men. You made me believe that not all men are the same—you really are different 😌.",
     "I love the patience you have with me, the way you look at me so flawlessly, and how you handle me with such care, as if I'm some fragile masterpiece 🥺.",
-    "You really are my sweet boy 🥹, and I love you more with each passing day. Loving you feels effortless you really do make it that easy 🥺.",
+    "You really are my sweet boy 🥹, and I love you more with each passing day. Loving you feels effortless—you really do make it that easy 🥺.",
     "There are no amount of words that could fully express how I truly feel. If only you could feel what I feel, then maybe you'd know 🤍.",
     "I pray that we always fight for each other, and that God gives us the strength to keep going even when we feel like giving up 🙏🏾❤️.",
     "I'd choose you over and over again—in this life and the next. Being with you truly is my favorite part of life 🥺.",
     "HAPPY VALENTINE'S, baby 🥺🥹💖"
   ];
 
-  // --- 100 REASONS WHY I LOVE YOU ---
   const reasons = [
     "How we're friends before lovers🫂❤️",
     "How happy I get around you💞",
@@ -171,7 +179,6 @@ function App() {
     setMenuOpen(false);
   };
 
-  /* ---------- LOGIN SCREEN ---------- */
   if (!isLoggedIn) {
     return (
       <div className="app-container">
@@ -192,20 +199,16 @@ function App() {
     );
   }
 
-  /* ---------- DASHBOARD ---------- */
   return (
     <div className="app-container dashboard">
-
-      {/* BACKDROP OVERLAY */}
       {menuOpen && <div className="sidebar-backdrop" onClick={() => setMenuOpen(false)} />}
 
-      {/* SIDEBAR */}
       <nav className={`glass-sidebar ${menuOpen ? 'active' : ''}`}>
         <div className="brand">Us.</div>
         <ul>
           <li onClick={() => handleNavClick("home")} className={currentPage === 'home' ? 'active-link' : ''}>🏠 Home</li>
           <li onClick={() => handleNavClick("letter")} className={currentPage === 'letter' ? 'active-link' : ''}>💌 Love Letter</li>
-          <li onClick={() => handleNavClick("100 Reasons")} className={currentPage === 'reasons' ? 'active-link' : ''}>✨ Reasons</li>
+          <li onClick={() => handleNavClick("reasons")} className={currentPage === 'reasons' ? 'active-link' : ''}>✨ 100 Reasons</li>
           <li onClick={() => handleNavClick("memories")} className={currentPage === 'memories' ? 'active-link' : ''}>📸 Pictures + Video</li>
         </ul>
       </nav>
@@ -227,7 +230,6 @@ function App() {
               ))}
               <div className="slideshow-overlay" />
             </div>
-
             <div className="relative-content">
               <h1 className="hero-text">Welcome Home, My Love 🤍</h1>
               <p>This space was made just for us.</p>
@@ -271,6 +273,7 @@ function App() {
             <div className="relative-content">
               <h2>Pictures + Video 🎞️</h2>
               <p className="section-subtitle">A few of my favorite moments with you.</p>
+              
               <div className="media-grid">
                 {photoGallery.map((photo, index) => (
                   <div className="media-card" key={photo}>
@@ -282,19 +285,24 @@ function App() {
                   </div>
                 ))}
               </div>
-              <div className="media-video">
-                <h3>Our Highlight Reel 💗</h3>
-                <video controls poster="/pic1.jpg">
-                  <source src={highlightVideo} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+
+              <div className="videos-section">
+                <h3 style={{ marginTop: '40px', marginBottom: '20px' }}>Our Videos 💗</h3>
+                {videos.map((video, index) => (
+                  <div className="media-video" key={index}>
+                    <h3>{video.title}</h3>
+                    <video controls poster="/pic1.jpg">
+                      <source src={video.url} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         )}
       </main>
 
-      {/* SPOTIFY FLOATING */}
       <Draggable bounds="body">
         <div className="music-player-wrapper draggable-widget floating-spotify">
           <div className="drag-handle">⠿ Drag</div>
