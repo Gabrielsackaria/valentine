@@ -205,7 +205,7 @@ function App() {
         <ul>
           <li onClick={() => handleNavClick("home")} className={currentPage === 'home' ? 'active-link' : ''}>🏠 Home</li>
           <li onClick={() => handleNavClick("letter")} className={currentPage === 'letter' ? 'active-link' : ''}>💌 Love Letter</li>
-          <li onClick={() => handleNavClick("reasons")} className={currentPage === 'reasons' ? 'active-link' : ''}>✨ Reasons</li>
+          <li onClick={() => handleNavClick("100 Reasons")} className={currentPage === 'reasons' ? 'active-link' : ''}>✨ Reasons</li>
           <li onClick={() => handleNavClick("memories")} className={currentPage === 'memories' ? 'active-link' : ''}>📸 Pictures + Video</li>
         </ul>
       </nav>
