@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Icon } from '@iconify/react';
 import './spotify.css';
 
-// Move trackURIs OUTSIDE the component to avoid re-renders
+// Correct Spotify track IDs
 const trackURIs = [
-  'spotify:track:3S8vvFMc0L8RZGIGXBBEcd', // I Wanna Know - Joe
+  'spotify:track:5m4bkJZpJO7xVOzVgcpsar', // I Wanna Know - Joe
   'spotify:track:1Rf6m1EdbCrcbugs7USmVZ', // Brown Eyes - Destiny's Child
   'spotify:track:47BBI51FKFwOMlIiX6m8ya', // Because You Loved Me - Celine Dion
-  'spotify:track:4P4x7OTEROMEptDOpO4jog', // So Into You - Tamia
+  'spotify:track:5IVuqXMxtemjHT3CJZNWui', // So Into You - Tamia
   'spotify:track:6RtPijgfPKROxEzTHNRiDp', // Dangerously in Love - Beyoncé
   'spotify:track:2O7YKnBEKPoCw4b06Y4CYf', // Mirrors - Justin Timberlake
   'spotify:track:1xznGGDReH1oQq0xzbwXa3', // You're Still The One - Shania Twain
