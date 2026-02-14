@@ -2,20 +2,20 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Icon } from '@iconify/react';
 import './spotify.css';
 
-// Move trackURIs outside the component
-const trackURIs = [
-  'spotify:track:3KkXRkHbMCARz0aVfEt68P',
-  'spotify:track:5IPl8JpkbtSH1mdyq5ctSx',
-  'spotify:track:609E1JCInJncactoMmkDon',
-  'spotify:track:22VHOlVYBqytsrAqV8yXBK',
-  'spotify:track:4VQH4VluDUOsOuDxccTeyN',
-  'spotify:track:26hOm7dTtBi0TdpDGl141t',
-  'spotify:track:3Eax1yebRxj6LSYpxE9Yd3',
-];
-
 function SpotifyEmbed() {
   const embedRef = useRef(null);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+
+  const trackURIs = [
+    'spotify:track:3S8vvFMc0L8RZGIGXBBEcd', // I Wanna Know - Joe
+    'spotify:track:1Rf6m1EdbCrcbugs7USmVZ', // Brown Eyes - Destiny's Child
+    'spotify:track:47BBI51FKFwOMlIiX6m8ya', // Because You Loved Me - Celine Dion
+    'spotify:track:4P4x7OTEROMEptDOpO4jog', // So Into You - Tamia
+    'spotify:track:6RtPijgfPKROxEzTHNRiDp', // Dangerously in Love - Beyoncé
+    'spotify:track:2O7YKnBEKPoCw4b06Y4CYf', // Mirrors - Justin Timberlake
+    'spotify:track:1xznGGDReH1oQq0xzbwXa3', // You're Still The One - Shania Twain
+    'spotify:track:1z3ugFmUKoCzGsI6jdY4Ci', // Boo'd Up - Ella Mai (closest match)
+  ];
 
   useEffect(() => {
     const embedElement = embedRef.current;
@@ -25,7 +25,7 @@ function SpotifyEmbed() {
       embedElement.src = embedSource;
     }
     updateEmbed();
-  }, [currentTrackIndex]); // Now we don't need trackURIs in the dependency array
+  }, [currentTrackIndex, trackURIs]);
 
   const goForward = () => setCurrentTrackIndex((currentTrackIndex + 1) % trackURIs.length);
   const goBackward = () => setCurrentTrackIndex((currentTrackIndex - 1 + trackURIs.length) % trackURIs.length);
@@ -33,7 +33,7 @@ function SpotifyEmbed() {
   return (
     <div className="spotify-widget-content">
       <div id="spotify-embed-container">
-        <h4 style={{margin: '0 0 10px 0', fontFamily: 'Inter'}}>Jordan's Playlist</h4>
+        <h4 style={{margin: '0 0 10px 0', fontFamily: 'Inter'}}>Our Love Songs</h4>
         <iframe
           ref={embedRef}
           title="Spotify Embed"
